@@ -1,25 +1,30 @@
-
 #!/bin/bash
-
+#Enter the network field 
 echo "Enter the network"
 read network
 
+#Enter the first host  
 echo "First host"
 read first
 
+#Enter the last host 
 echo "Enter the last"
 read last
-rm -rf /home/kali/bash-script/userlist
+
+#Delete any existing file
+rm -rf /home/kali/bash-scripts/responding
 
 if [ -n "$network" ] && [ -n "$first" ] && [ -n "$last" ]
 then
-        cat /etc/passwd | cut -d "1" -f1 1>/home/kali/bash-scripts/userlist
         for ip in $(seq $first $last)
         do
-        ping -c 1 $network.$ip | grep "64 bytes" | cut -d " " -f4 | cut -d ":" -f1 >> /home/>
+        #ping the host and save the standard output to a file. 
+        ping -c 1 $network.$ip | grep "64 bytes" | cut -d " " -f4 | cut -d ":" -f1 >> /home/kali/bash-scripts/responding &
         done
         echo "Wait for 5 seconds"
         sleep 5
+        
+        #if the file exist and not empty
         if [ -s /home/kali/bash-scripts/responding ]
         then
                 for response in $(cat /home/kali/bash-scripts/responding )
@@ -29,6 +34,8 @@ then
         else
                 echo "No host is alive"
         fi
+        
+#any user input missing 
 elif [ -z "$network" ] || [ -z "$first" ] ||  [ -z "$last" ]
 then
         if [ -z "$network" ] && [ \( -n "$first" -a -n "$last" \) ]
