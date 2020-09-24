@@ -8,7 +8,7 @@ if [ -n "$file" ]
 then
         if [ -f "$file" ]
         then
-                cat $file | grep -i "js" | cut -d "/" -f5 | cut -d " " -f1 | sort | un>
+                cat $file | grep -i ".js" | cut -d "/" -f5 | cut -d " " -f1 | sort | un>
                 if [ -s "/home/kali/bash-scripts/js-files" ]
                 then
                         echo "Found Some javascript files"
