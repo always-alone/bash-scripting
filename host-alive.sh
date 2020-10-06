@@ -1,4 +1,9 @@
 #!/bin/bash
+#!/bin/bash
+#Name: Hrishikesh Ghosalkar
+#Bash-Script: To find Active host in the network which responds to ping 
+#For OSCP lab excerises
+
 #Enter the network field 
 echo "Enter the network"
 read network
