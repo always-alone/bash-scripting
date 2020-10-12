@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#Just for practice 
+
+#This script is to find out whether the specfied user exsit or not
+#if does not exist, it creates a new user with specified username
+
+echo "This script is to find out the username in the system"
+sleep 1 
+echo "Enter the username"
+read username 
+
+if [ -f "/home/kali/bash-scripts/userlist" ]
+then
+        rm -rf /home/kali/bash-scripts/userlist
+fi
+
+if [ -n "$username" ]
+then
+        cat /etc/passwd | grep "$username" >> /home/kali/bash-scripts/userlist
+        if [ -s /home/kali/bash-scripts/userlist ]
+        then
+                echo "$username: Does exist"
+        else
+                echo "$username: Do not Exists"
+                sleep 1
+                echo "$username: created"
+        fi
+else
+        echo "The username field is empty, try again later"
+fi
