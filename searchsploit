@@ -1,0 +1,40 @@
+#oscpm excerise
+#searchsploit
+
+echo "Enter the OPerating system: Windowd or Linux"
+read os 
+
+echo "Enter the Options if any"
+read option
+
+rm -rf /home/kali/bash-scripts/exploits
+
+downloading() {
+        if [ -s /home/kali/bash-scripts/exploits ]
+        then
+                sed -i 's/exploits/raw/g' /home/kali/bash-scripts/exploits
+                for url in $(cat /home/kali/bash-scripts/exploits)
+                do
+                        wget -q $url    
+                        echo "Downloading wait....!!"
+                        echo "Download finish"
+                        echo "*******************************************************"
+                done
+        else
+                echo "No exploits found"
+        fi
+}
+
+
+if [ -n "$os" ]
+then 
+                if [ "$os" == "Windows" ]
+                then
+                        if [ -n "$option" ]
+                        then
+                                searchsploit $option $os | cut -d "|" -f2 | grep "exploits" | cut -d " " -f2 1>> /home/kali/bash-script>
+                                downloading
+                        else
+                                searchsploit $os | cut -d "|" -f2 | grep "exploits" |  cut -d " " -f2 1>> /home/kali/bash-scripts/explo>
+                                downloading
+                        fi
