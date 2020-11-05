@@ -29,3 +29,25 @@ then
 else
         echo "The username field is empty, try again later"
 fi
+------------------------------------------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+
+rm -rf /home/kali/bash-scripts/user-list
+rm -rf /home/kali/bash-scripts/user
+cat /etc/passwd | cut -d ":" -f1 > /home/kali/bash-scripts/user-list
+
+echo "Enter the username to check"
+read username
+
+if [ -n "$username" ]
+then
+        cat /home/kali/bash-scripts/user-list | grep "$username" > /home/kali/ba>
+        if [ -s "/home/kali/bash-scripts/user" ]
+        then
+                echo "User exist"
+        else
+                echo "User doesnt exist"
+        fi
+else
+        echo "Username Field is empty"
+fi
