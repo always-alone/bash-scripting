@@ -1,0 +1,32 @@
+#even or odd number with division
+
+/bin/bash
+echo "Enter the dividend"
+read dividend
+
+echo "Enter the divisior"
+read divisor
+
+if [ -n "$dividend" ] && [ -n "$divisor" ]
+then
+        if [ $dividend -gt $divisor ] || [ $dividend -ge $divisor ]
+        then
+                if (( $dividend %$divisor == 0 ))
+                then
+                        echo "Number is even"
+                else
+                        echo "Number is odd"
+                fi
+        elif [ $dividend -lt $divisor ]
+        then
+                echo "Divisor cannot be greater"
+        fi
+elif [ -n "$dividend" ] && [ -z "$divisor" ]
+then
+        echo "Divisor field cannot be empty"
+elif [ -z "$dividend" ] && [ -n "$divisor" ]
+then
+        echo "Dividend field cannot be empty"
+else
+        echo "Both field cannot be empty"
+fi
