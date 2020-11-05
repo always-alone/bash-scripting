@@ -38,3 +38,49 @@ then
                                 searchsploit $os | cut -d "|" -f2 | grep "exploits" |  cut -d " " -f2 1>> /home/kali/bash-scripts/explo>
                                 downloading
                         fi
+                        
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------       
+#!/bin/bash
+
+echo "Enter the operating system"
+read os
+
+echo "Enter the specfic title"
+read title
+
+echo "Enter the option"
+read option
+
+rm -rf /home/kali/bash-scripts/linux-exploits
+rm -rf /home/kali/bash-scripts/windows-exploits
+
+if [ -n "$os" ]
+then
+        if [ "$os" == "Linux" ]
+        then
+                searchsploit $os $title $option | cut -d "|" -f2 | grep "exploit>
+                if [ -s /home/kali/bash-scripts/linux-exploits ]
+                then
+                        sed -i 's/exploits/raw/g' /home/kali/bash-scripts/linux->
+                        sleep 2 
+                        echo "Downloading exploits"
+                        mkdir /home/kali/bash-scripts/L-exploits
+                        cd /home/kali/bash-scripts/L-exploits
+                        wget -qi /home/kali/bash-scripts/linux-exploits
+                fi
+        elif [ "$os" == "Windows" ]
+        then
+                searchsploit $os $title $option | cut -d "|" -f2 | grep "exploit>
+                if [ -s /home/kali/bash-scripts/windows-exploits ]
+                then
+                        sed -i 's/exploits/raw/g' /home/kali/bash-scripts/window>
+                        sleep 2 
+                        echo "Downloading exploits"
+                        mkdir /home/kali/bash-scripts/W-exploits
+                        cd /home/kali/bash-scripts/W-exploits
+                        wget -qi /home/kali/bash-scripts/windows-exploits
+                fi
+                else
+                        echo "Invalid OPerating system"
+        fi
+
