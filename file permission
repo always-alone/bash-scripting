@@ -1,0 +1,61 @@
+#check-file-permissions
+
+#!/bin/bash
+
+echo "Enter the location"
+read location 
+
+echo "Enter the file"
+read file
+
+echo "Which permission to check: read, write,excute"
+read permission
+
+if [ -n "$location" ] && [ -n "$file" ] && [ -n "$permission" ]
+then
+        if [ -e "$location$file" ]
+        then
+                echo "File exist, let me check permission"
+                sleep 3
+                if [ "$permission" == "read" ]
+                then
+                        if [ -r "$location$file" ]
+                        then
+                                echo "Read permission exist"
+                        else
+                                echo "No read permission"
+                        fi
+                elif [ "$permission" == "write" ]
+                then
+                        if [ -w "$location$file" ]
+                        then
+                                echo "Write permission exist"
+                        else
+                                echo "No write permission"
+                        fi
+                elif [ "$permission" == "excute" ]
+                then
+                        if [ -x "$location$file" ]
+                        then
+                                echo "Excute permission exist"
+                        else
+                                echo "No excute permission"
+                        fi
+                fi
+        else
+          echo "File / DIrectory doesnt exist"
+          fi
+elif [ -z "$location"] && [ \( -n "$file" -a -n "$permission" \) ]
+then
+        echo "LOcation field cannot be empty"
+elif [ -z "$file" ] && [ \( -n "$location" -a -n "$permission" \) ]
+then
+        echo "File field cannot be empty"
+
+elif [ -z "$permission"] && [ \( -n "$file" -a -n "$location" \) ]
+then
+        echo "LOcation field cannot be empty"
+else
+        echo "Something is wrong / missing with the user input"
+fi
+
