@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "Enter the first number"
+read first
+
+echo "Enter the second number"
+read second 
+
+if [ -n "$first" ] && [ -n "$second" ]
+then
+        ans=`expr $first + $second`
+        while [ -n "$ans" ]
+        do
+                if [ $ans -gt 100 ]
+                then
+                        break
+                else
+                        echo "**********************"
+                        echo "Answer is :$ans"
+                        echo "Add another number"
+                        read another
+                        ans=`expr $another + $ans`
+                        if [ $ans -gt 100 ]
+                        then
+                                echo "Quit new number is greater than 100"
+                        else
+                                echo "Mew number is $ans"
+                        fi
+                fi      
+        done
+else
+        echo "Some of the field is missing"
+fi
