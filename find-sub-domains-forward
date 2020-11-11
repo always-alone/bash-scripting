@@ -21,7 +21,7 @@ then
                 then
                         echo "Sub-doamins are listed below"
                         echo "****************************"
-                        cat /home/kali/bash-scripts/sub-domains
+                        cat /home/kali/bash-scripts/sub-domains | sort -h | uniq >
                 else
                         echo "No sub-domains were found for the given domain"
                 fi
