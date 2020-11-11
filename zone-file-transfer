@@ -1,0 +1,35 @@
+  GNU nano 4.5                     zone-transfer.sh                               
+#!/bin/bash
+
+
+rm -rf /home/kali/bash-scripts/zone-transfer-result
+
+echo "Enter the domain"
+read domain 
+
+echo "Finding out the name server for: $domain"
+sleep 3
+echo "**************************************************"
+echo "Name servers for the $domain are listed below"
+host -t ns $domain | cut -d " " -f4
+echo "**************************************************"
+echo "Would you like to do Zone transfer: Y or N"
+read answer
+
+if [ "$answer" == "Y" ] 
+then
+        echo "Enter the name server"
+        read nameserver
+        host -l $domain $nameserver 1> /home/kali/bash-scripts/zone-transfer-resu>
+        if [ -s "/home/kali/bash-scripts/zone-transfer-result" ]
+        then
+                cat /home/kali/bash-scripts/zone-transfer-result
+        else
+                echo "Not sucessfull"
+        fi
+elif [ "$answer" == "N" ]
+then
+        echo "Bye"
+else
+        echo "Invalid Answer"
+fi
