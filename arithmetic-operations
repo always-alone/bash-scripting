@@ -1,6 +1,12 @@
 #!/bin/bash
 #Simple bash script to perform arithmetic operations
 
+#1 --> Ask user to input two numbers 
+#       1.1 --> If the numbers field is empty, script ends
+
+#2 --> Provide user a options to do what type of arithmetic operations such as add, subtract, multiply, remainder, quotient 
+ #       2.1 ---> If the option field doesn't match with the option as per mentioned, the script ends
+
 
 echo "Enter first number"
 read first
