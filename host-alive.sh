@@ -1,58 +1,47 @@
 #!/bin/bash
-#!/bin/bash
-#Name: Hrishikesh Ghosalkar
-#Bash-Script: To find Active host in the network which responds to ping 
-#For OSCP lab excerises
+#oscp excerise
+#author: Hrishi Ghosalkar
+#bash script: to check which host i.e the IP address responds to the icmp ping. 
+#displays the list of host, if they respond back 
 
-#Enter the network field 
-echo "Enter the network"
+echo "Enter the nework: Example 1.1.1"
 read network
 
-#Enter the first host  
-echo "First host"
+echo "Enter the first host"
 read first
 
-#Enter the last host 
-echo "Enter the last"
+echo "Enter Last host"
 read last
-
-#Delete any existing file
-rm -rf /home/kali/bash-scripts/responding
 
 if [ -n "$network" ] && [ -n "$first" ] && [ -n "$last" ]
 then
-        for ip in $(seq $first $last)
+        echo "Checking host"
+        for host in $(seq $first $last)
         do
-        #ping the host and save the standard output to a file. 
-        ping -c 1 $network.$ip | grep "64 bytes" | cut -d " " -f4 | cut -d ":" -f1 >> /home/kali/bash-scripts/responding &
+                ping -c 1 $network.$host | grep "64 bytes" | cut -d " " -f4 | cut -d >
         done
-        echo "Wait for 5 seconds"
         sleep 5
         
-        #if the file exist and not empty
-        if [ -s /home/kali/bash-scripts/responding ]
+        if [ -s "/home/kali/bash-scripts/host-responding" ]
         then
-                for response in $(cat /home/kali/bash-scripts/responding )
+                for hosts in $(cat /home/kali/bash-scripts/host-responding)
                 do
-                        echo "Host is alive: $response"
+                        echo "Host is alive: $hosts"
                 done
         else
-                echo "No host is alive"
+                echo "No host found alive"
         fi
-        
-#any user input missing 
-elif [ -z "$network" ] || [ -z "$first" ] ||  [ -z "$last" ]
+elif [ -z "$network" ] && [ \( -n "$first" -a -n "$last" \) ]
 then
-        if [ -z "$network" ] && [ \( -n "$first" -a -n "$last" \) ]
-        then
-                echo "Network field cannot be empty"
-        elif [ -z "$first" ] && [ \( -n "$network" -a -n "$last" \) ]
-        then
-                echo "First host field cannot be empty"
-        elif [ -z "$last" ] && [ \( -n "$network" -a -n "$first" \) ]
-        then
-                echo "last host field cannot be empty"
-        else
-                echo "Most of the input field are missing"
-        fi
+        echo "Network field cannot be empty"
+elif [ -z "$first" ] && [ \( -n "$network" -a -n "$last" \) ]
+then
+        echo "first field cannot be empty"
+elif [ -z "$last" ] && [ \( -n "$network" -a -n "$first" \) ]
+then
+        echo "Last field cannot be empty"
+else
+        echo "All fields cannot be empty"
 fi
+rm -rf /home/kali/bash-scripts/host-responding
+
