@@ -1,0 +1,54 @@
+#!/bin/bash
+#Simple bash script to perform arithmetic operations
+
+
+echo "Enter first number"
+read first
+
+echo "Enter second number"
+read second 
+
+if [ -n "$first" ] && [ -n "$second" ]
+then
+        echo "What would you like to do from the below options"
+        echo "***********************"
+        echo "Addition: +, Subtract: -, Multiply: *, Quotient:: / Remainder: %, Quit:>
+        read option
+        echo "***********************"
+        if [ -n "$option" ]
+        then
+                if [ "$option" == "+" ]
+                then
+                        echo "Addition of $first and $second is: `expr $first + $seco>
+                elif [ "$option" == "-" ]
+                then
+                        echo "Subtraction of $first and $second is: `expr $first - $s>
+                elif [ "$option" == "*" ]
+                then
+                        echo "Muliplication of $first and $second is: `expr $first \*>
+                elif [ "$option" == "/" ]
+                then
+                        echo "Quotient of $first and $second is: `expr $first \% $sec>
+                elif [ "$option" == "%" ]
+                then
+                        echo "Remainder of $first and $second is: `expr $first \/ $se>
+                elif [ "$option" == "Q" ]
+                then
+                        echo "Bye"
+                else
+                        echo "Invalid Option"
+                fi
+        else
+                echo "Option field is empty, which is not possible"
+                echo "Bye"
+        fi
+elif [ -z "$first" ] && [ -n "$second" ]
+then
+        echo "First number cannot be empty, Try again"
+elif [ -n "$first" ] && [ -z"$second" ]
+then
+        echo "Second number cannot be empty, Try again"
+else
+        echo "Both field cannot be empty"
+fi
+
