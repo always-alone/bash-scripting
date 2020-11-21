@@ -1,33 +1,54 @@
 #!/bin/bash
+#As the user to input two numbers for addition
+# if the answer for the above equation is greater than 100, then quit
+# if the answer for the above equation is less than 100, then goes in while loop 
 
 echo "Enter the first number"
 read first
 
 echo "Enter the second number"
 read second 
-
-if [ -n "$first" ] && [ -n "$second" ]
+count=1
+ans=`expr $first + $second`
+if [ -n "$first" ] &&  [ -n "$second" ]
 then
-        ans=`expr $first + $second`
-        while [ -n "$ans" ]
-        do
-                if [ $ans -gt 100 ]
-                then
-                        break
-                else
-                        echo "**********************"
-                        echo "Answer is :$ans"
-                        echo "Add another number"
-                        read another
-                        ans=`expr $another + $ans`
-                        if [ $ans -gt 100 ]
+        if [ $ans -lt 100 ] 
+        then
+                while [ $ans -lt 100 ]  
+                do
+                        if [ $ans -lt 100  ] && [ $count -eq 1 ]
                         then
-                                echo "Quit new number is greater than 100"
+                                echo "Addition of $first and $second: $ans"
+                                echo "Add a new number to add to the above expression>
+                                read number
+                                ((ans=ans+$number))
+                                echo "New Total is : $ans"
+                                echo "***********************************************>
+                                ((count++))
+                        elif [ $ans -lt 100  ] && [ $count -gt 1 ]
+                        then
+                                echo "Add a new number to add to the above expression>
+                                read number
+                                ((ans=ans+$number))
+                                echo "New Total is : $ans"
+                                echo "***********************************************>
                         else
-                                echo "Mew number is $ans"
+                                echo "Answer is greater than 100, so quit"
+                                break
                         fi
-                fi      
-        done
+                done
+        else
+                echo "Answer is greater than 100. BYE"
+        fi
+        
+elif [ -n "$first" ] &&  [ -z "$second" ]
+then
+        echo "Second number field cannot be empty"
+
+elif [ -z "$first" ] &&  [ -n "$second" ]then
+        echo "First number field cannot be empty"
 else
-        echo "Some of the field is missing"
+        echo "Both field cannot be empty"
 fi
+echo "Bye"
+
