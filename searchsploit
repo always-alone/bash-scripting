@@ -1,86 +1,61 @@
-#oscpm excerise
+#oscp excerise
 #searchsploit
+#Get a input from the user to specify the Operating system i.e. Windows or Linux 
+# Get a input from the user to specify the title 
+#based upon the above details, it downloads the exploits which matches the user input 
 
-echo "Enter the OPerating system: Windowd or Linux"
-read os 
-
-echo "Enter the Options if any"
-read option
-
-rm -rf /home/kali/bash-scripts/exploits
-
-downloading() {
-        if [ -s /home/kali/bash-scripts/exploits ]
-        then
-                sed -i 's/exploits/raw/g' /home/kali/bash-scripts/exploits
-                for url in $(cat /home/kali/bash-scripts/exploits)
-                do
-                        wget -q $url    
-                        echo "Downloading wait....!!"
-                        echo "Download finish"
-                        echo "*******************************************************"
-                done
-        else
-                echo "No exploits found"
-        fi
-}
-
-
-if [ -n "$os" ]
-then 
-                if [ "$os" == "Windows" ]
-                then
-                        if [ -n "$option" ]
-                        then
-                                searchsploit $option $os | cut -d "|" -f2 | grep "exploits" | cut -d " " -f2 1>> /home/kali/bash-script>
-                                downloading
-                        else
-                                searchsploit $os | cut -d "|" -f2 | grep "exploits" |  cut -d " " -f2 1>> /home/kali/bash-scripts/explo>
-                                downloading
-                        fi
-                        
------------------------------------------------------------------------------------------------------------------------------------------------------------------------       
 #!/bin/bash
 
-echo "Enter the operating system"
+rm -rf /home/kali/bash-scripts/Windows
+rm -rf /home/kali/bash-scripts/Linux
+
+echo "Enter Operating system: Windows or Linux (Case-sensitive)"
 read os
 
-echo "Enter the specfic title"
+echo "Title"
 read title
 
-echo "Enter the option"
-read option
-
-rm -rf /home/kali/bash-scripts/linux-exploits
-rm -rf /home/kali/bash-scripts/windows-exploits
-
-if [ -n "$os" ]
+if [ -n "$os" ] && [ -n "$title" ]
 then
-        if [ "$os" == "Linux" ]
+        if [ "$os" == "Windows" ] && [ -n "$title" ]    
         then
-                searchsploit $os $title $option | cut -d "|" -f2 | grep "exploit>
-                if [ -s /home/kali/bash-scripts/linux-exploits ]
+                mkdir /home/kali/bash-scripts/$os
+                searchsploit $os -t $title -e -w | grep "exploits" | cut -d "|" -f2 |>
+                if [ -s "/home/kali/bash-scripts/$os/$os-exploits" ]
                 then
-                        sed -i 's/exploits/raw/g' /home/kali/bash-scripts/linux->
-                        sleep 2 
-                        echo "Downloading exploits"
-                        mkdir /home/kali/bash-scripts/L-exploits
-                        cd /home/kali/bash-scripts/L-exploits
-                        wget -qi /home/kali/bash-scripts/linux-exploits
-                fi
-        elif [ "$os" == "Windows" ]
-        then
-                searchsploit $os $title $option | cut -d "|" -f2 | grep "exploit>
-                if [ -s /home/kali/bash-scripts/windows-exploits ]
-                then
-                        sed -i 's/exploits/raw/g' /home/kali/bash-scripts/window>
-                        sleep 2 
-                        echo "Downloading exploits"
-                        mkdir /home/kali/bash-scripts/W-exploits
-                        cd /home/kali/bash-scripts/W-exploits
-                        wget -qi /home/kali/bash-scripts/windows-exploits
-                fi
+                        echo "Exploits found"
+                        echo "Now Dowloading the exploits"
+                        sed -i 's/exploits/raw/g' /home/kali/bash-scripts/$os/$os-exp>
+                        cd /home/kali/bash-scripts/$os
+                        wget -qi /home/kali/bash-scripts/$os/$os-exploits &
+                        sleep 5
+                        echo "Done"
                 else
-                        echo "Invalid OPerating system"
-        fi
+                        echo "No exploit found"
+                fi
+        elif [ "$os" == "Linux" ] && [ -n "$title" ]
+        then
+                mkdir /home/kali/bash-scripts/$os
+                searchsploit $os -t $title -e -w | grep "exploits" | cut -d "|" -f2 |>
+                if [ -s "/home/kali/bash-scripts/$os/$os-exploits" ]
+                then
+                        echo "Exploits found"
+                        echo "Now Dowloading the exploits"
+                        sed -i 's/exploits/raw/g' /home/kali/bash-scripts/$os/$os-exp>
+                        cd /home/kali/bash-scripts/$os
+                        wget -qi /home/kali/bash-scripts/$os/$os-exploits &
+                        sleep 5
+                        echo "Done"
+                else
+                        echo "No exploit found"
+                fi
+                elif [ -n "$os" ] && [ -z "$title" ]
+then
+        echo "Tilte Field missing, Quit"
 
+elif [ -z "$os" ] && [ -n "$title" ]
+then
+        echo "Operating system Field missing, Quit"
+else
+        echo "Operating system and title field cannot be empty"
+fi
