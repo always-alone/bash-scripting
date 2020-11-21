@@ -1,6 +1,6 @@
 #!/bin/bash
-#Always a user to enter the absolute path and the filename
-#based upon the above input, the script check whether the file or directory exists or not. 
+#Ask the user to input the location (Absolute path) and filename
+#Based upon the above input, it check whether file or directory already exist in the system or not. 
 
 echo "Enter the file location:Absolute Path"
 read location
@@ -16,7 +16,12 @@ then
                 then
                         echo "Directory exist: $file"
                 else
-                        echo "File exists: $file"
+                        if [ -s "$location$file" ]
+                        then
+                                echo "File exist and size is greater than zero bytes"
+                        else
+                                echo "File exist and size is zero bytes"
+                        fi
                 fi
         else
                 echo "Invalid File path"
