@@ -1,4 +1,6 @@
-#even or odd number with division
+#even or odd number 
+#Ask user to input two numbers, 1 as Divident and 2nd as a divisor
+#The script decide whether the number is odd or even based upon the remainder
 
 /bin/bash
 echo "Enter the dividend"
@@ -30,3 +32,26 @@ then
 else
         echo "Both field cannot be empty"
 fi
+"*******************************************************************************************************************************************************"
+Another Script 
+
+echo "Enter number to check remainder is EVEN or ODD"
+read first
+
+if [ -n "$first" ]
+then
+        echo "Lets check the Remainder number is EVEN on ODD"
+        echo "**************************************************"
+        echo "The number will be divided by 2"
+        echo "Checking"
+        echo "**************************************************"
+        if (( "$first" % 2 == 0 ))
+        then
+                echo "The number is EVEN"
+        else
+                echo "The number is ODD"
+        fi
+else
+        echo "First number field cannot be empty"
+fi
+
