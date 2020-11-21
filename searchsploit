@@ -32,6 +32,7 @@ then
                         echo "Done"
                 else
                         echo "No exploit found"
+                        rm -rf /home/kali/bash-scripts/$os
                 fi
         elif [ "$os" == "Linux" ] && [ -n "$title" ]
         then
@@ -48,6 +49,7 @@ then
                         echo "Done"
                 else
                         echo "No exploit found"
+                        rm -rf /home/kali/bash-scripts/$os
                 fi
                 elif [ -n "$os" ] && [ -z "$title" ]
 then
